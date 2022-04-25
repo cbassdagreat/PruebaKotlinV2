@@ -4,6 +4,7 @@ import android.app.Application
 import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
+import cbassdagreat.github.pruebakotlinv2.cliente.ClienteRetrofit
 import cbassdagreat.github.pruebakotlinv2.model.CryptoMonedas
 import cbassdagreat.github.pruebakotlinv2.model.CryptoMonedasItem
 import retrofit2.Call
@@ -15,10 +16,10 @@ class CryptoVM (application: Application) : AndroidViewModel(application){
         val monedas = MutableLiveData<CryptoMonedas>()
         val moneda = MutableLiveData<CryptoMonedasItem>()
 
-      /**  fun getData()
+      fun getData()
         {
             val service = ClienteRetrofit.getInstancia(ClienteRetrofit.BASE_URL)
-            service.getCursos().enqueue(object  : Callback<CryptoMonedas> {
+            service.getCrypto().enqueue(object  : Callback<CryptoMonedas> {
                 override fun onResponse(call: Call<CryptoMonedas>, response: Response<CryptoMonedas>) {
                     response.body().let {
                         monedas.postValue(it)
@@ -30,8 +31,8 @@ class CryptoVM (application: Application) : AndroidViewModel(application){
 
             })
         }
-**/
-        fun updateCurso(moneda:CryptoMonedasItem)
+
+        fun updateCrypto(moneda:CryptoMonedasItem)
         {
             this.moneda.value = moneda
         }
