@@ -6,6 +6,6 @@ import retrofit2.http.GET
 
 interface CryptoService {
 
-    @GET("list?access_key=dfb0a4bdc4bfb1a0da1ab21f5d3e4c4e")
+    @GET("assets")
     fun getCrypto() : Call<CryptoMonedas>
 }

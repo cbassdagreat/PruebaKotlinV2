@@ -27,13 +27,14 @@ class DetalleFragment : Fragment() {
         viewModel.moneda.observe(viewLifecycleOwner, Observer {
             with(binding)
             {
-                Picasso.get().load(it.iconUrl).into(ivPicCrypto)
+                var icon: String? = it.symbol
+                Picasso.get().load("https://static.coincap.io/assets/icons/$icon@2x.png").into(ivPicCrypto)
                 tvAcrDetail.text = it.symbol
-                tvMktCap.text = it.maxSupply.toString()
-                tvSupply.text = it.maxSupply.toString()
-                tvName.text = it.nameFull
-                tvTime.text = it.name
-                tvXRDetail.text = it.maxSupply.toString()
+                tvMktCap.text = it.marketCapUsd
+                tvSupply.text = it.maxSupply
+                tvName.text = it.name
+                tvTime.text = it.vwap24Hr
+                tvXRDetail.text = it.priceUsd?.substring(0,10)
 
             }
         })

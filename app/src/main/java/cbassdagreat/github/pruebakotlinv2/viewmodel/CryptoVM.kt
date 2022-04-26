@@ -23,6 +23,7 @@ class CryptoVM (application: Application) : AndroidViewModel(application){
                 override fun onResponse(call: Call<CryptoMonedas>, response: Response<CryptoMonedas>) {
                     response.body().let {
                         monedas.postValue(it)
+                        Log.i("response", it.toString())
                     }
                 }
                 override fun onFailure(call: Call<CryptoMonedas>, t: Throwable) {

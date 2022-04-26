@@ -9,7 +9,6 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.room.InvalidationTracker
 import cbassdagreat.github.pruebakotlinv2.R
 import cbassdagreat.github.pruebakotlinv2.adapter.CryptoAdapter
 import cbassdagreat.github.pruebakotlinv2.databinding.FragmentListaBinding

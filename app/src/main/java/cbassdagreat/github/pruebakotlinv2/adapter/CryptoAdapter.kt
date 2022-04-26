@@ -20,7 +20,8 @@ class CryptoAdapter  : RecyclerView.Adapter<CryptoAdapter.CustomViewHolder>()
         {
             with(binding)
             {
-                Picasso.get().load(cryptoMonedasItem.iconUrl).resize(50,50).into(ivSymbol)
+                var icon: String? = cryptoMonedasItem.symbol?.lowercase()
+                Picasso.get().load("https://static.coincap.io/assets/icons/$icon@2x.png").into(ivSymbol)
                 tvAcr.text = cryptoMonedasItem.symbol
                 tvXR.text = cryptoMonedasItem.maxSupply.toString()
 
@@ -32,7 +33,7 @@ class CryptoAdapter  : RecyclerView.Adapter<CryptoAdapter.CustomViewHolder>()
         }
     }
 
-    var lista:List<CryptoMonedasItem> = CryptoMonedas()
+    var lista:List<CryptoMonedasItem> = ArrayList()
     lateinit var listener: MiListener
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CustomViewHolder {
@@ -44,13 +45,12 @@ class CryptoAdapter  : RecyclerView.Adapter<CryptoAdapter.CustomViewHolder>()
         holder.bindData(lista[position])
     }
 
-    override fun getItemCount(): Int {
-        return lista.size
-    }
+    override fun getItemCount(): Int = lista.size
+
 
     fun updateData(moneda: CryptoMonedas)
     {
-        lista = moneda
+        lista = moneda.data
         notifyDataSetChanged()
     }
 
