@@ -1,11 +1,14 @@
 package cbassdagreat.github.pruebakotlinv2.model
 
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
-
+@Entity(tableName = "crypto")
 data class CryptoMonedasItem(
     @SerializedName("id")
-    val id: String?,
+    @PrimaryKey
+    val id: String,
     @SerializedName("marketCapUsd")
     val marketCapUsd: String?,
     @SerializedName("maxSupply")
@@ -16,6 +19,5 @@ data class CryptoMonedasItem(
     val priceUsd: String?,
     @SerializedName("symbol")
     val symbol: String?,
-    @SerializedName("vwap24Hr")
-    val vwap24Hr: String?
+
 )
