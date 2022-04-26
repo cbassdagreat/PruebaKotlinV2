@@ -23,7 +23,7 @@ class CryptoAdapter  : RecyclerView.Adapter<CryptoAdapter.CustomViewHolder>()
                 var icon: String? = cryptoMonedasItem.symbol?.lowercase()
                 Picasso.get().load("https://static.coincap.io/assets/icons/$icon@2x.png").into(ivSymbol)
                 tvAcr.text = cryptoMonedasItem.symbol
-                tvXR.text = cryptoMonedasItem.maxSupply.toString()
+                tvXR.text = cryptoMonedasItem.priceUsd?.substring(0,8)
 
                 itemView.setOnClickListener {
                     listener.miOnClick(cryptoMonedasItem)
