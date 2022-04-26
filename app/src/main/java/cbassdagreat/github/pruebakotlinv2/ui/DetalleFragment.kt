@@ -1,5 +1,7 @@
 package cbassdagreat.github.pruebakotlinv2.ui
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -20,13 +22,13 @@ class DetalleFragment : Fragment() {
 
     lateinit var binding: FragmentDetalleBinding
     private val viewModel by activityViewModels<CryptoVM>()
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
         binding = FragmentDetalleBinding.inflate(layoutInflater)
-
         viewModel.moneda.observe(viewLifecycleOwner, Observer {
             with(binding)
             {
@@ -38,6 +40,7 @@ class DetalleFragment : Fragment() {
                 tvName.text = it.name
                 tvTime.text = SimpleDateFormat("HH:mm:ss", Locale.getDefault()).format(Date()).toString()
                 tvXRDetail.text = it.priceUsd?.substring(0,8)
+
 
                 btnVolver.setOnClickListener {
                     Navigation.findNavController(requireView()).navigate(R.id.action_detalleFragment_to_listaFragment)

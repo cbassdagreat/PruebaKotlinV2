@@ -25,6 +25,7 @@ class CryptoAdapter  : RecyclerView.Adapter<CryptoAdapter.CustomViewHolder>()
                 tvAcr.text = cryptoMonedasItem.symbol
                 tvXR.text = cryptoMonedasItem.priceUsd?.substring(0,8)
 
+
                 itemView.setOnClickListener {
                     listener.miOnClick(cryptoMonedasItem)
                 }

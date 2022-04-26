@@ -1,6 +1,9 @@
 package cbassdagreat.github.pruebakotlinv2.ui
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
+import android.text.Editable
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -18,6 +21,7 @@ import cbassdagreat.github.pruebakotlinv2.viewmodel.CryptoVM
 class ListaFragment : Fragment() {
 
     lateinit var binding: FragmentListaBinding
+    lateinit var sharedPreferences: SharedPreferences
     private val viewModel by activityViewModels<CryptoVM>()
     private val adapter = CryptoAdapter()
 
@@ -27,17 +31,22 @@ class ListaFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         binding = FragmentListaBinding.inflate(layoutInflater)
+        sharedPreferences = requireActivity().getSharedPreferences("archivo", Context.MODE_PRIVATE)
 
         val layoutManager = LinearLayoutManager(requireContext())
+
 
         with(binding)
         {
             rvLista.adapter = adapter
             rvLista.layoutManager = layoutManager
+            tvUser.text = sharedPreferences.getString("user","")
         }
 
         adapter.setMiListener(object : CryptoAdapter.MiListener{
             override fun miOnClick(cursosItem: CryptoMonedasItem) {
+                var usr:String = binding.etUser.text.toString()
+                sharedPreferences.edit().putString("user", usr).commit()
                 viewModel.updateCrypto(cursosItem)
                 Navigation.findNavController(requireView()).navigate(R.id.action_listaFragment_to_detalleFragment)
             }
@@ -51,4 +60,5 @@ class ListaFragment : Fragment() {
         return binding.root
     }
 
+    fun String.toEditable(): Editable =  Editable.Factory.getInstance().newEditable(this)
 }
