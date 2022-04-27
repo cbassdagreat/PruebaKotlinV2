@@ -12,7 +12,7 @@ import cbassdagreat.github.pruebakotlinv2.model.CryptoMonedasItem
 interface CryptoDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun agregar(cryptoMonedas: CryptoMonedas)
+    fun agregar(cryptoMonedas: List<CryptoMonedasItem>)
 
     @Query("select id, name, marketCapUsd, maxSupply, priceUsd, symbol from crypto")
     fun listar() : LiveData<List<CryptoMonedasItem>>

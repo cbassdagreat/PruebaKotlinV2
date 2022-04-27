@@ -9,11 +9,11 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class CursoRepository(var context: Context) {
+class CryptoRepo(var context: Context) {
 
     private val db = ProyectoDatabase.getInstancia(context)
 
-    fun agregar(cryptoMonedas:CryptoMonedas)
+    fun agregar(cryptoMonedas:List<CryptoMonedasItem>)
     {
         CoroutineScope(Dispatchers.IO).launch {
             db.cryptoDao().agregar(cryptoMonedas)

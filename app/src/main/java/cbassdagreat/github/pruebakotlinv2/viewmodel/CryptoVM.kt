@@ -7,34 +7,51 @@ import androidx.lifecycle.MutableLiveData
 import cbassdagreat.github.pruebakotlinv2.cliente.ClienteRetrofit
 import cbassdagreat.github.pruebakotlinv2.model.CryptoMonedas
 import cbassdagreat.github.pruebakotlinv2.model.CryptoMonedasItem
+import cbassdagreat.github.pruebakotlinv2.repository.ClienteRepo
+import cbassdagreat.github.pruebakotlinv2.repository.CryptoRepo
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 class CryptoVM (application: Application) : AndroidViewModel(application){
 
-        val monedas = MutableLiveData<CryptoMonedas>()
+        private val clienteRepo = ClienteRepo()
+        private val cryptoRepo = CryptoRepo(getApplication())
+        val monedas = cryptoRepo.listar()
         val moneda = MutableLiveData<CryptoMonedasItem>()
 
       fun getData()
         {
-            val service = ClienteRetrofit.getInstancia(ClienteRetrofit.BASE_URL)
-            service.getCrypto().enqueue(object  : Callback<CryptoMonedas> {
-                override fun onResponse(call: Call<CryptoMonedas>, response: Response<CryptoMonedas>) {
-                    response.body().let {
-                        monedas.postValue(it)
-                        Log.i("response", it.toString())
-                    }
-                }
-                override fun onFailure(call: Call<CryptoMonedas>, t: Throwable) {
-                    Log.e("CALL",t.message.toString())
-                }
+           CoroutineScope(Dispatchers.IO).launch {
+               if (cryptoRepo.getCount() == 0){
+                   clienteRepo.getListaCrypto().enqueue(object : Callback<CryptoMonedas> {
+                       override fun onResponse(
+                           call: Call<CryptoMonedas>,
+                           response: Response<CryptoMonedas>
+                       ) {
+                               response.body().let {
+                                   cryptoRepo.agregar(it!!.data)
+                               }
+                       }
 
-            })
+                       override fun onFailure(call: Call<CryptoMonedas>, t: Throwable) {
+                           Log.e("CALL", t.message.toString())
+
+                       }
+                   })
+           }
+
         }
 
-        fun updateCrypto(moneda:CryptoMonedasItem)
-        {
-            this.moneda.value = moneda
+        }
+    fun updateCrypto(id:String)
+    {
+        CoroutineScope(Dispatchers.IO).launch {
+            moneda.postValue(cryptoRepo.buscar(id))
         }
     }
+}
+//var lista:List<CryptoMonedasItem> = ArrayList()

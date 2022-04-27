@@ -34,6 +34,8 @@ class CryptoAdapter  : RecyclerView.Adapter<CryptoAdapter.CustomViewHolder>()
         }
     }
 
+    //oJo1
+
     var lista:List<CryptoMonedasItem> = ArrayList()
     lateinit var listener: MiListener
 
@@ -49,14 +51,14 @@ class CryptoAdapter  : RecyclerView.Adapter<CryptoAdapter.CustomViewHolder>()
     override fun getItemCount(): Int = lista.size
 
 
-    fun updateData(moneda: CryptoMonedas)
+    fun updateData(monedas: List<CryptoMonedasItem>)
     {
-        lista = moneda.data
+        lista = monedas
         notifyDataSetChanged()
     }
 
     interface MiListener{
-        fun miOnClick(cursosItem: CryptoMonedasItem)
+        fun miOnClick(cryptoMonedasItem: CryptoMonedasItem)
     }
 
    fun setMiListener(listener: MiListener)

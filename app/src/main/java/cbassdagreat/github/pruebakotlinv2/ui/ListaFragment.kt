@@ -44,10 +44,10 @@ class ListaFragment : Fragment() {
         }
 
         adapter.setMiListener(object : CryptoAdapter.MiListener{
-            override fun miOnClick(cursosItem: CryptoMonedasItem) {
+            override fun miOnClick(cryptoMonedasItem: CryptoMonedasItem) {
                 var usr:String = binding.etUser.text.toString()
                 sharedPreferences.edit().putString("user", usr).commit()
-                viewModel.updateCrypto(cursosItem)
+                viewModel.updateCrypto(cryptoMonedasItem.id)
                 Navigation.findNavController(requireView()).navigate(R.id.action_listaFragment_to_detalleFragment)
             }
 
